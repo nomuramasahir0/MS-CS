@@ -1,0 +1,24 @@
+{
+  "MSSynthetic1D": {
+    "fn": "ms_synthetic",
+    "continuous_space": {
+      "theta": ["Uniform", -8.0, 8.0]
+    }
+  },
+  "ParkinsonSVM": {
+    "fn": "parkinson",
+    "continuous_space": {
+      "gamma": ["PowUniform", 0.00005, 5000],
+      "C": ["PowUniform", 0.00005, 5000]
+    }
+  },
+  "GvHDLGBM": {
+    "fn": "gvhd",
+    "continuous_space": {
+      "learning_rate": ["PowUniform", 0.001, 0.1],
+      "colsample_bytree": ["Uniform", 0.1, 1.0],
+      "reg_lambda": ["PowUniform", 0.00005, 5000],
+      "max_depth": ["QUniform", 2, 6]
+    }
+  }
+}
