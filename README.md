@@ -1,4 +1,4 @@
-# msu-hpo-reproduction
+# MSU-HPO
 Code for reproducing the results in the paper "Multi-Source Unsupervised Hyperparameter Optimization".
 
 ## Abstract
