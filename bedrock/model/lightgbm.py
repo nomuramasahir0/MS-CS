@@ -4,15 +4,14 @@ from bedrock.model import util
 
 
 class LGBMBinaryClassifier(model.Model):
-
     def __init__(self, theta, seed):
         super().__init__(theta)
         self.default = {
-            'objective': 'binary',
-            'boosting_type': 'gbdt',
-            'n_estimators': 100,
-            'verbose': -1,
-            'random_state': seed
+            "objective": "binary",
+            "boosting_type": "gbdt",
+            "n_estimators": 100,
+            "verbose": -1,
+            "random_state": seed,
         }
         theta = util.complement_default(self.default, theta)
         self.gbm = lgb.LGBMClassifier(**theta)

@@ -42,12 +42,15 @@ class Uniform(ContinuousSearchRange):
 
     def convert(self, x):
         converted_x = self._low + (self._high - self._low) * x
-        return np.clip(converted_x, self._low,
-                       self._high) if self._clipping else converted_x
+        return (
+            np.clip(converted_x, self._low, self._high)
+            if self._clipping
+            else converted_x
+        )
 
     def inverse_convert(self, converted_x):
         x = (converted_x - self._low) / (self._high - self._low)
-        assert 0. <= x <= 1.
+        assert 0.0 <= x <= 1.0
         return x
 
 
@@ -57,11 +60,15 @@ class QUniform(ContinuousSearchRange):
 
     def convert(self, x):
         converted_x = np.floor(self._low + (self._high - self._low + 1) * x)
-        return int(np.clip(converted_x, self._low, self._high) if self._clipping else converted_x)
+        return int(
+            np.clip(converted_x, self._low, self._high)
+            if self._clipping
+            else converted_x
+        )
 
     def inverse_convert(self, converted_x):
         x = (converted_x - self._low) / (self._high - self._low)
-        assert 0. <= x <= 1.
+        assert 0.0 <= x <= 1.0
         return x
 
 
@@ -72,13 +79,18 @@ class PowUniform(ContinuousSearchRange):
 
     def convert(self, x):
         converted_x = self._low + (self._high - self._low) * x
-        converted_x = np.clip(converted_x, self._low,
-                              self._high) if self._clipping else converted_x
+        converted_x = (
+            np.clip(converted_x, self._low, self._high)
+            if self._clipping
+            else converted_x
+        )
         return np.power(self._b, converted_x)
 
     def inverse_convert(self, converted_x):
-        x = np.log10(converted_x / self._low) / (np.log10(self._high) - np.log10(self._low))
-        assert 0. <= x <= 1.
+        x = np.log10(converted_x / self._low) / (
+            np.log10(self._high) - np.log10(self._low)
+        )
+        assert 0.0 <= x <= 1.0
         return x
 
 
@@ -89,11 +101,16 @@ class PowQUniform(ContinuousSearchRange):
 
     def convert(self, x):
         converted_x = self._low + (self._high - self._low) * x
-        converted_x = np.clip(converted_x, self._low,
-                              self._high) if self._clipping else converted_x
+        converted_x = (
+            np.clip(converted_x, self._low, self._high)
+            if self._clipping
+            else converted_x
+        )
         return int(np.power(self._b, converted_x))
 
     def inverse_convert(self, converted_x):
-        x = np.log10(converted_x / self._low) / (np.log10(self._high) - np.log10(self._low))
-        assert 0. <= x <= 1.
+        x = np.log10(converted_x / self._low) / (
+            np.log10(self._high) - np.log10(self._low)
+        )
+        assert 0.0 <= x <= 1.0
         return x
