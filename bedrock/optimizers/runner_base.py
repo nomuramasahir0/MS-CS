@@ -1,16 +1,18 @@
 import numpy as np
 import pandas as pd
+from abc import ABCMeta, abstractmethod
 
 
-class RunnerBase(object):
+class RunnerBase(metaclass=ABCMeta):
     def __init__(self, **params):
         self.params = params
         self.log = {}
         self.best_params = None
         self.best_fval = 1e10
 
+    @abstractmethod
     def run(self):
-        raise NotImplementedError()
+        pass
 
     def save(self):
         if 'path' not in self.params:

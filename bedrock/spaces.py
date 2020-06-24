@@ -1,7 +1,8 @@
 import numpy as np
+from abc import ABCMeta, abstractmethod
 
 
-class Space(object):
+class Space:
     def __init__(self, continuous_space):
         self._continuous_space = continuous_space
 
@@ -10,24 +11,27 @@ class Space(object):
         return self._continuous_space
 
 
-class SearchRange(object):
+class SearchRange(metaclass=ABCMeta):
     def __init__(self, label):
         self.label = label
 
+    @abstractmethod
     def convert(self, x):
-        raise NotImplementedError
+        pass
 
 
-class ContinuousSearchRange(SearchRange):
+class ContinuousSearchRange(SearchRange, metaclass=ABCMeta):
     def __init__(self, label, low, high, clipping=True):
         super().__init__(label)
         self._low = low
         self._high = high
         self._clipping = clipping
 
+    @abstractmethod
     def convert(self, x):
         raise NotImplementedError
 
+    @abstractmethod
     def inverse_convert(self, converted_x):
         raise NotImplementedError
 
