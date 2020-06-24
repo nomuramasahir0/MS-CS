@@ -15,7 +15,9 @@ class FunctionBase(metaclass=ABCMeta):
         assert self.space is not None
         theta = dict()
         for i in range(self.dim):
-            theta[self.space.continuous_space[i].label] = self.space.continuous_space[i].convert(x[i])
+            theta[self.space.continuous_space[i].label] = self.space.continuous_space[
+                i
+            ].convert(x[i])
         return theta
 
     @abstractmethod
@@ -37,13 +39,13 @@ class FunctionBase(metaclass=ABCMeta):
     def evaluate(self, x):
         theta = self.convert_to_dict_space_from_normalized_space(x)
         # evaluation
-        if self.estimator_type == 'naive':
+        if self.estimator_type == "naive":
             return self.eval_naive(theta)
-        elif self.estimator_type == 'upper':
+        elif self.estimator_type == "upper":
             return self.eval_upper(theta)
-        elif self.estimator_type == 'unbiased':
+        elif self.estimator_type == "unbiased":
             return self.eval_unbiased(theta)
-        elif self.estimator_type == 'vr':
+        elif self.estimator_type == "vr":
             return self.eval_vr(theta)
         else:
             raise NotImplementedError

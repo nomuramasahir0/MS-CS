@@ -6,11 +6,12 @@ from bedrock.optimizers.utils import opt_util
 
 
 class GPUCB:
-
     def create_theta(self, x):
         theta = dict()
         for i in range(self.dim):
-            theta[self.space.continuous_space[i].label] = self.space.continuous_space[i].convert(x[i])
+            theta[self.space.continuous_space[i].label] = self.space.continuous_space[
+                i
+            ].convert(x[i])
         return theta
 
     def log_generation(self, x, y):
@@ -22,32 +23,32 @@ class GPUCB:
             self.best_fval = self.fval
             self.best_params = theta
 
-        self.log['evals'].append(self.evals)
-        self.log['fval'].append(self.fval)
-        self.log['best_fval'].append(self.best_fval)
+        self.log["evals"].append(self.evals)
+        self.log["fval"].append(self.fval)
+        self.log["best_fval"].append(self.best_fval)
         for i in range(self.dim):
-            self.log[self.space.continuous_space[i].label].append(self.space.continuous_space[i].convert(x[i]))
+            self.log[self.space.continuous_space[i].label].append(
+                self.space.continuous_space[i].convert(x[i])
+            )
 
     def __init__(self, **params):
-        self.seed = params['seed']
+        self.seed = params["seed"]
         np.random.seed(self.seed)
-        self.B = params['B']
-        self.obj_func = params['obj_func']
-        self.dim = params['obj_func'].dim
+        self.B = params["B"]
+        self.obj_func = params["obj_func"]
+        self.dim = params["obj_func"].dim
         # GP
         self.xs = np.zeros((0, self.dim))
         self.ys = np.zeros((0, 1))
         # kernel
-        matern = Matern(nu=2.5, length_scale=[1. for _ in range(self.dim)])
-        white = WhiteKernel(noise_level=1.)
-        constant = ConstantKernel(constant_value=1.)
+        matern = Matern(nu=2.5, length_scale=[1.0 for _ in range(self.dim)])
+        white = WhiteKernel(noise_level=1.0)
+        constant = ConstantKernel(constant_value=1.0)
         self.gp = GaussianProcessRegressor(
-            kernel=constant * matern + white,
-            normalize_y=True,
-            n_restarts_optimizer=15
+            kernel=constant * matern + white, normalize_y=True, n_restarts_optimizer=15
         )
         # BO
-        self.beta = 2.
+        self.beta = 2.0
         self.num_initial_samples = 5
         self.acq_initial_points = 50
 
@@ -56,7 +57,7 @@ class GPUCB:
         self.fval = None
         self.best_params = None
         self.best_fval = np.inf
-        self.space = params['space']
+        self.space = params["space"]
         self.log = opt_util.basic_log_setup(self.space)
 
     def ucb(self, x):
@@ -65,14 +66,21 @@ class GPUCB:
         return mean - self.beta * std
 
     def argmin_acq(self):
-        x_initials = [np.random.uniform(0., 1., size=self.dim) for _ in range(self.acq_initial_points)]
+        x_initials = [
+            np.random.uniform(0.0, 1.0, size=self.dim)
+            for _ in range(self.acq_initial_points)
+        ]
         x_best = None
         fval_best = np.inf
         for xp in x_initials:
-            res = minimize(lambda x: self.ucb(x.reshape(1, -1)), # (1, -1) means it contains a single sample
-                           xp.reshape(1, -1),
-                           bounds=[(0., 1.) for _ in range(self.dim)],
-                           method='L-BFGS-B')
+            res = minimize(
+                lambda x: self.ucb(
+                    x.reshape(1, -1)
+                ),  # (1, -1) means it contains a single sample
+                xp.reshape(1, -1),
+                bounds=[(0.0, 1.0) for _ in range(self.dim)],
+                method="L-BFGS-B",
+            )
             if res.fun < fval_best:
                 x_best = res.x
                 fval_best = res.fun
@@ -82,7 +90,7 @@ class GPUCB:
         for t in range(self.B):
             # Step 1. select sample to evaluate
             if t < self.num_initial_samples:
-                x = np.random.uniform(0., 1., size=self.dim)
+                x = np.random.uniform(0.0, 1.0, size=self.dim)
             else:
                 x = self.argmin_acq()
 

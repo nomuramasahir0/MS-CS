@@ -1,7 +1,7 @@
 import numpy as np
 
 
-class Uniform(object):
+class Uniform:
     def __init__(self, low, high):
         self.low = low
         self.high = high
@@ -10,7 +10,7 @@ class Uniform(object):
         return np.random.uniform(self.low, self.high)
 
 
-class RandInt(object):
+class RandInt:
     def __init__(self, low, high):
         self.low = low
         self.high = high
@@ -19,7 +19,7 @@ class RandInt(object):
         return np.random.randint(self.low, self.high)
 
 
-class Choice(object):
+class Choice:
     def __init__(self, candidates):
         self.candidates = candidates
 
@@ -27,7 +27,7 @@ class Choice(object):
         return self.candidates[np.random.randint(len(self.candidates))]
 
 
-class PUniform(object):
+class PUniform:
     def __init__(self, low, high, base=10):
         self.low = low
         self.high = high

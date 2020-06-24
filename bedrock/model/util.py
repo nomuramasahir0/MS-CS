@@ -10,11 +10,13 @@ def complement_default(default, theta):
 
 
 def get_model(name):
-    if name == 'LGBMBinaryClassifier':
+    if name == "LGBMBinaryClassifier":
         from bedrock.model.lightgbm import LGBMBinaryClassifier
+
         return LGBMBinaryClassifier
-    elif name == 'SVR':
+    elif name == "SVR":
         from bedrock.model.svr import SVMRegression
+
         return SVMRegression
     else:
         raise NotImplementedError
