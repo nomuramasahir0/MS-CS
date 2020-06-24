@@ -1,5 +1,7 @@
+from abc import ABCMeta, abstractmethod
 
-class FunctionBase(object):
+
+class FunctionBase(metaclass=ABCMeta):
     def __init__(self, dim, name):
         self.dim = dim
         self.name = name
@@ -16,17 +18,21 @@ class FunctionBase(object):
             theta[self.space.continuous_space[i].label] = self.space.continuous_space[i].convert(x[i])
         return theta
 
+    @abstractmethod
     def eval_naive(self, theta):
-        raise NotImplementedError
+        pass
 
+    @abstractmethod
     def eval_upper(self, theta, flag_target_evaluate=False):
-        raise NotImplementedError
+        pass
 
+    @abstractmethod
     def eval_unbiased(self, theta):
-        raise NotImplementedError
+        pass
 
+    @abstractmethod
     def eval_vr(self, theta):
-        raise NotImplementedError
+        pass
 
     def evaluate(self, x):
         theta = self.convert_to_dict_space_from_normalized_space(x)
