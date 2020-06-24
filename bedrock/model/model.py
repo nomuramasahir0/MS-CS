@@ -1,10 +1,14 @@
+from abc import ABCMeta, abstractmethod
 
-class Model:
+
+class Model(metaclass=ABCMeta):
     def __init__(self, theta):
         self.theta = theta
 
+    @abstractmethod
     def fit(self, X, y):
-        raise NotImplementedError
+        pass
 
+    @abstractmethod
     def pred(self, X):
-        raise NotImplementedError
+        pass
