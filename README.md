@@ -1,16 +1,18 @@
-# MSU-HPO
-Code for reproducing the results in the paper "**Multi-Source Unsupervised Hyperparameter Optimization**".
+# MS-CS
+Code for reproducing the results in the paper "**Efficient Hyperparameter Optimization under Multi-Source Covariate Shift**".
 
 If you find this code useful in your research then please cite:
 
 ```
-@article{nomura2020multi,
-  title={Multi-Source Unsupervised Hyperparameter Optimization},
+@inproceedings{nomura2021efficient,
+  title={Efficient Hyperparameter Optimization under Multi-Source Covariate Shift},
   author={Nomura, Masahiro and Saito, Yuta},
-  journal={arXiv preprint arXiv:2006.10600},
-  year={2020}
+  booktitle={Proceedings of the 2021 ACM on Conference on Information and Knowledge Management},
+  year={2021}
 }
 ```
+
+(The page numbers will be added as soon as it is known.)
 
 ## Environments
 
