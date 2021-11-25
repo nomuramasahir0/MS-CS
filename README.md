@@ -7,12 +7,11 @@ If you find this code useful in your research then please cite:
 @inproceedings{nomura2021efficient,
   title={Efficient Hyperparameter Optimization under Multi-Source Covariate Shift},
   author={Nomura, Masahiro and Saito, Yuta},
-  booktitle={Proceedings of the 2021 ACM on Conference on Information and Knowledge Management},
+  booktitle={Proceedings of the 30th ACM International Conference on Information \& Knowledge Management},
+  pages={1376--1385},
   year={2021}
 }
 ```
-
-(The page numbers will be added as soon as it is known.)
 
 ## Environments
 
